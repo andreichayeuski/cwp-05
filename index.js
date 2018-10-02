@@ -1,15 +1,11 @@
 const http = require("http");
-const fs = require("fs");
-const log = require("./log.js");
-const readAll = require("handlers/readAll.js");
-const read = require("handlers/read.js");
-const updateArticle = require("handlers/updatearticle.js");
-const createArticle = require("handlers/createarticle.js");
-const deleteArticle = require("handlers/deletearticle.js");
-const createComment = require("comments/createcomment");
-const deleteComment = require("comments/deletecomments");
-const f = require("fs").createWriteStream("log.txt");
-let articles = [];
+const readAll = require("./handlers/readAll.js");
+const read = require("./handlers/read.js");
+const updateArticle = require("./handlers/articles/updateArticle.js");
+const createArticle = require("./handlers/articles/createArticle.js");
+const deleteArticle = require("./handlers/articles/deleteArticle.js");
+const createComment = require("./handlers/comments/createComment");
+const deleteComment = require("./handlers/comments/deleteComment");
 const hostname = "localhost";
 const port = 3000;
 
@@ -44,13 +40,9 @@ const server = http.createServer((req, res) => {
 	});
 });
 //task 04.01
-const a = new Promise((res, rej) => {
-	articles = require("./articles.json");
-});
-a.then(() => {
-	server.listen(port, hostname, () => {
-		console.log(`Server running at http://${hostname}:${port}/`);
-	});
+
+server.listen(port, hostname, () => {
+	console.log(`Server running at http://${hostname}:${port}/`);
 });
 
 function getHandler(url) {

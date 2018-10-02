@@ -1,6 +1,7 @@
-module.exports.log = function(file, url, data) {
+const fs = require("fs");
+module.exports.log = function(url, data) {
 	const curDate = new Date();
-	file.write(`\nDate: ${curDate.getDay()}.${curDate.getMonth() + 1}.${curDate.getFullYear()} ${curDate.getHours()}:${curDate.getMinutes()}:${curDate.getSeconds()}
+	fs.appendFileSync("log.txt", `\nDate: ${curDate.getDay()}.${curDate.getMonth() + 1}.${curDate.getFullYear()} ${curDate.getHours()}:${curDate.getMinutes()}:${curDate.getSeconds()}
     \tUrl: ${url}
-    \tData: ${data}\n`);
+    \tData: ${JSON.parse(data)}\n`);
 };
